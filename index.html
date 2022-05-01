@@ -12,23 +12,27 @@
         - numpy
         - paths:
           - /pyscript-react-demo/utils.py
+          - /pyscript-react-demo/my_package/__init__.py
+          - /pyscript-react-demo/my_package/my_function.py
     </py-env>
     <py-script>
-        import js
-        import pyodide
-        e = js.React.createElement
+import js
+import pyodide
+import my_package
 
-        @pyodide.create_proxy
-        def App(props, children):
-            return e(
-                'div', None,
-                e('h1', None, 'Hello World'),
-                e('p', None, 'This is my first React app.'),
-            )
-        # Create a div to contain our component
-        dom_container = js.document.createElement('div')
-        js.document.body.appendChild(dom_container)
-        js.ReactDOM.render(e(App, None), dom_container)
+e = js.React.createElement
+
+@pyodide.create_proxy
+def App(props, children):
+    return e(
+        'div', None,
+        e('h1', None, my_package.my_function("Werld")),
+        e('p', None, 'This is my first React app.'),
+    )
+# Create a div to contain our component
+dom_container = js.document.createElement('div')
+js.document.body.appendChild(dom_container)
+js.ReactDOM.render(e(App, None), dom_container)
     </py-script>
 </body>
 
