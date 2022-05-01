@@ -3,38 +3,34 @@
 <head>
     <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
     <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+    <script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>
 </head>
 
 <body>
-    <py-env>
-        - paths:
-            - /utils.py
-    </py-env>
-    <div class="font-mono">start time: <label id="outputDiv"></label></div>
-    <div id="outputDiv2" class="font-mono"></div>
-    <div id="outputDiv3" class="font-mono"></div>
-    <py-script output="outputDiv">
-import utils
-utils.now()
-    </py-script>
-
+    <!-- <py-env>
+    - paths:
+        - /utils.py
+    </py-env> -->
     <py-script>
-from utils import now
-import asyncio
-
-async def foo():
-while True:
-await asyncio.sleep(1)
-output = now()
-pyscript.write("outputDiv2", output)
-
-out3 = Element("outputDiv3")
-if output[-1] in ["0", "4", "8"]:
-out3.write("It's espresso time!")
-else:
-out3.clear()
-
-pyscript.run_until_complete(foo())
+import js
+import pyodide
+e = js.React.createElement
+def jsobj(**kwargs):
+    return js.Object.fromEntries(pyodide.to_js(kwargs))
+def App(props, children):
+    count, set_count = js.React.useState(0)
+    def handle_click(event):
+        set_count(count + 1)
+    return e(
+        'div', None,
+        e('p', None, f"You clicked {count} times"),
+        e('button', jsobj(onClick=handle_click), 'Click me'),
+    )
+# Create a div to contain our component
+dom_container = js.document.createElement('div')
+js.document.body.appendChild(dom_container)
+js.ReactDOM.render(e(App, None), dom_container)
     </py-script>
 </body>
 
