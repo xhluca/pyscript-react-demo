@@ -1,1 +1,1 @@
-from . import my_package
+import my_package
