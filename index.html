@@ -1,38 +1,41 @@
 <html lang="en">
-    <head>
-        <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
-        <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
-        <py-env>
+
+<head>
+    <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+    <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+</head>
+
+<body>
+    <py-env>
         - paths:
-          - /pyscript-react-demo/utils.py
-        </py-env>
-    </head>
-    <body>
-        <div class="font-mono">start time: <label id="outputDiv"></label></div>
-        <div id="outputDiv2" class="font-mono"></div>
-        <div id="outputDiv3" class="font-mono"></div>
-        <py-script output="outputDiv">
-    import utils
-    utils.now()
-        </py-script>
-    
-        <py-script>
+            - /utils.py
+    </py-env>
+    <div class="font-mono">start time: <label id="outputDiv"></label></div>
+    <div id="outputDiv2" class="font-mono"></div>
+    <div id="outputDiv3" class="font-mono"></div>
+    <py-script output="outputDiv">
+import utils
+utils.now()
+    </py-script>
+
+    <py-script>
 from utils import now
 import asyncio
 
 async def foo():
-    while True:
-    await asyncio.sleep(1)
-    output = now()
-    pyscript.write("outputDiv2", output)
-    
-    out3 = Element("outputDiv3")
-    if output[-1] in ["0", "4", "8"]:
-        out3.write("It's espresso time!")
-    else:
-        out3.clear()
+while True:
+await asyncio.sleep(1)
+output = now()
+pyscript.write("outputDiv2", output)
+
+out3 = Element("outputDiv3")
+if output[-1] in ["0", "4", "8"]:
+out3.write("It's espresso time!")
+else:
+out3.clear()
 
 pyscript.run_until_complete(foo())
-        </py-script>
-    </body>
+    </py-script>
+</body>
+
 </html>
