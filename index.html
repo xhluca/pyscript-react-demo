@@ -16,7 +16,7 @@
     <py-script>
 import js
 import pyodide
-import my_package
+import utils
 
 e = js.React.createElement
 
@@ -26,6 +26,8 @@ def App(props, children):
         'div', None,
         e('h1', None, my_package.my_function("Werld")),
         e('p', None, 'This is my first React app.'),
+        e('p', None, str(utils.my_package)),
+        e('p', None, str(utils.my_package.my_function))
     )
 # Create a div to contain our component
 dom_container = js.document.createElement('div')
