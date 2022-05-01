@@ -1,0 +1,30 @@
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+        <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+        <py-env>
+        - paths:
+          - /utils.py
+        </py-env>
+    </head>
+    <body>
+        <py-script>
+from utils import now
+import asyncio
+
+async def foo():
+    while True:
+    await asyncio.sleep(1)
+    output = now()
+    pyscript.write("outputDiv2", output)
+    
+    out3 = Element("outputDiv3")
+    if output[-1] in ["0", "4", "8"]:
+        out3.write("It's espresso time!")
+    else:
+        out3.clear()
+
+pyscript.run_until_complete(foo())
+        </py-script>
+    </body>
+</html>
