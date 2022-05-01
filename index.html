@@ -17,6 +17,8 @@
 import js
 import pyodide
 e = js.React.createElement
+
+@pyodide.create_proxy
 def App(props, children):
     return e(
         'div', None,
